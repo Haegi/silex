@@ -1,6 +1,10 @@
 #!/bin/bash
 FROM resin/raspberrypi3-debian:stretch
 
+RUN sudo apt-get install npm
+RUN npm install -g npm@latest
+RUN node -v
+
 # Create app directory
 WORKDIR /usr/src/app
 
