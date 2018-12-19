@@ -2,7 +2,6 @@
 FROM hypriot/rpi-alpine
 
 RUN apk add --update nodejs nodejs-npm
-RUN docker -v
 RUN npm -v
 
 # Create app directory
