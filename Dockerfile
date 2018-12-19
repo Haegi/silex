@@ -1,9 +1,6 @@
 #!/bin/bash
-FROM node:alpine
+FROM arm32v7/node
 
-WORKDIR /qemu-arm-static
-
-COPY ./qemu-arm-static /usr/bin/qemu-arm-static
 # Create app directory
 WORKDIR /usr/src/app
 

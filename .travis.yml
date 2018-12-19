@@ -3,8 +3,6 @@ services:
 - docker
 language: bash
 script:
-- sudo apt update
-- sudo apt install -y qemu qemu-user-static qemu-user binfmt-support
 # prepare qemu
 - docker run --rm --privileged multiarch/qemu-user-static:register --reset
 # build image
