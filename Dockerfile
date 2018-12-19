@@ -1,9 +1,5 @@
 #!/bin/bash
-FROM resin/rpi-raspbian
-
-RUN sudo apt-get update && sudo apt-get install -y curl
-RUN curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -
-RUN sudo apt-get update && sudo apt-get install -y nodejs
+FROM resin/raspberrypi3-debian:stretch
 
 # Create app directory
 WORKDIR /usr/src/app
