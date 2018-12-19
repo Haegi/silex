@@ -1,8 +1,8 @@
 #!/bin/bash
 FROM hypriot/rpi-alpine
 
-RUN sudo apt-get update && sudo apt-get install nodejs npm
-RUN sudo npm install -g npm@latest
+RUN apt-get update && apt-get install nodejs npm
+RUN npm install -g npm@latest
 RUN npm -v
 
 # Create app directory
