@@ -1,6 +1,8 @@
 #!/bin/bash
 FROM sameersbn/gitlab-ci-runner:5.2.1
 
+RUN apt-get update && apt-get install -y nodejs
+
 # Create app directory
 WORKDIR /usr/src/app
 
