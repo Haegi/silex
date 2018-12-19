@@ -1,5 +1,5 @@
 #!/bin/bash
-FROM hypriot/rpi-alpine
+FROM hypriot/rpi-node
 
 RUN npm -v
 
