@@ -1,5 +1,5 @@
 #!/bin/bash
-FROM arm32v7/node
+FROM sameersbn/gitlab-ci-runner:5.2.1
 
 # Create app directory
 WORKDIR /usr/src/app
