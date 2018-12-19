@@ -1,5 +1,5 @@
 #!/bin/bash
-FROM resin/raspberry-pi-node
+FROM hypriot/rpi-alpine
 
 # Create app directory
 WORKDIR /usr/src/app
