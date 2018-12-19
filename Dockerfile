@@ -1,5 +1,5 @@
 #!/bin/bash
-FROM hypriot/rpi-node:6.10.0
+FROM node:alpine
 # Create app directory
 WORKDIR /usr/src/app
 
