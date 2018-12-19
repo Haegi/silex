@@ -3,6 +3,8 @@ FROM resin/rpi-raspbian
 
 RUN sudo apt-get update && sudo apt-get install -y nodejs
 RUN sudo apt-get install npm
+RUN npm install -g npm@latest
+RUN sudo npm cache clean -f && sudo npm install -g n && sudo n stable
 
 # Create app directory
 WORKDIR /usr/src/app
