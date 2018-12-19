@@ -1,8 +1,6 @@
 #!/bin/bash
-FROM resin/raspberrypi3-debian:stretch
+FROM resin/raspberrypi3-alpine-node
 
-RUN sudo apt-get update && sudo apt-get install nodejs npm
-RUN sudo npm install -g npm@latest
 RUN npm -v
 
 # Create app directory
