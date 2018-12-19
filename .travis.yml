@@ -3,8 +3,8 @@ services:
 - docker
 language: bash
 script:
-apt-cache madison docker-ce
-apt-get install docker-ce=17.05.0~ce-0~debian-jessie
+- apt-cache madison docker-ce
+- apt-get install docker-ce=17.05.0~ce-0~debian-jessie
 # prepare qemu
 - docker run --rm --privileged multiarch/qemu-user-static:register --reset
 # build image
