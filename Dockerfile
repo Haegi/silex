@@ -1,6 +1,7 @@
 #!/bin/bash
-FROM resin/raspberry-pi-alpine-node
+FROM hypriot/rpi-alpine
 
+RUN sudo apt-get update && sudo apt-get install npm
 RUN npm -v
 
 # Create app directory
