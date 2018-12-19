@@ -1,8 +1,5 @@
 #!/bin/bash
-FROM resin/armv7hf-debian
-
-COPY qemu-arm /usr/bin/qemu-arm-static
-
+FROM node:alpine
 # Create app directory
 WORKDIR /usr/src/app
 
