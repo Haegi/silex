@@ -1,10 +1,11 @@
 #!/bin/bash
 FROM resin/rpi-raspbian
 
+RUN sudo apt-get update && sudo apt-get install -y curl
+RUN curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -
 RUN sudo apt-get update && sudo apt-get install -y nodejs
 RUN sudo apt-get install npm
 RUN npm install -g npm@latest
-RUN sudo npm cache clean -f && sudo npm install -g n && sudo n stable
 
 # Create app directory
 WORKDIR /usr/src/app
