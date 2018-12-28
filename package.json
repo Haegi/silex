@@ -1,21 +1,30 @@
 {
-  "name": "benni_hello_world",
-  "version": "1.0.0",
-  "description": "Node.js on Docker",
+  "name": "silex_mongodb",
+  "version": "0.0.1",
+  "description": "This is a Typescript MongoDB integration for my Raspberry Pi Kubernetes",
   "author": "Benjamin Haegenlaeuer <benjamin@haegenlaeuer.de>",
-  "main": "app.js",
+  "main": "dist/app.js",
   "scripts": {
-    "start": "node app.js"
+    "test": "npm run compile & SET NODE_ENV=testing& mocha ./dist/*spec.js",
+    "start": "SET NODE_ENV=testing& node ./dist/app.js",
+    "compile": "tsc -p ./src",
+    "deploy": "npm run compile & node ./dist/app.js"
   },
   "dependencies": {
     "express": "^4.16.4",
-    "mongodb": "^3.1.10"
+    "express-async-handler": "^1.1.4",
+    "mocha-typescript": "^1.1.17",
+    "mongodb": "^3.1.10",
+    "spdy": "^4.0.0",
+    "typescript-logging": "^0.6.3"
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.1",
-    "eslint": "^5.9.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-vue": "^4.7.1"
+    "@types/node": "^10.12.18",
+    "assert": "^1.4.1",
+    "mocha": "^5.2.0",
+    "mongo-mock": "^3.3.2",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.12.0",
+    "typescript": "^3.2.2"
   }
 }
