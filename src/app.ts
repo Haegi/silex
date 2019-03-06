@@ -2,27 +2,40 @@ import * as express from "express";
 import {Application, Request, Response} from "express";
 import * as asyncHandler from "express-async-handler";
 import * as fs from "fs";
+import * as isPortReachable from "is-port-reachable";
 import * as spdy from "spdy";
-import { DatabaseController } from "./dbcontroller";
-import DBWrapper from "./dbwrapper";
+import { BrowserUI, IUserInterface } from "./dashboard";
+import { DatabaseController, IDatabase } from "./dbcontroller";
 import {catApp} from "./logconfig";
 
 export class App {
 // Express app
 public app: Application;
-public db: DatabaseController;
+public db: IDatabase;
 
 // Constants
-private readonly PORT: number = 8080;
+private readonly RESTPORT: number = 8080;
 private readonly HOST: string = "0.0.0.0";
+private UI: IUserInterface;
 
-public constructor() {
+public constructor(db: IDatabase, UIConnection: boolean) {
   this.app = express();
+  const router = express.Router();
   this.app.use(express.json());
-  this.db = DBWrapper.getInstance("mongo-0.mongo:27017", "test");
+  this.db = db;
+  // check for connection to UI on port 999
+  if (UIConnection) {
+    try {
+      this.checkConnection("localhost", 999);
+    } catch (e) {
+      catApp.warn(`catch triggered with exception ${e}`);
+    }
+  } else {
+    catApp.info("Startup without UI");
+  }
 
-  this.app.get("/", (req: Request, res: Response) => {
-    res.send("Hello world\n");
+  this.app.get("/ping", (req: Request, res: Response) => {
+    res.send("pong\n");
   });
 
   // Gets
@@ -76,6 +89,13 @@ public constructor() {
     try {
       await this.db.insert(req.body);
       res.status(201).send("Created");
+
+      // Send update to UI
+      if (this.UI) {
+        this.updateOnChanges(req.body);
+      } else {
+        catApp.info("No UI available");
+      }
     } catch (err) {
       res.status(500).send("Something with the insert went wrong.");
       catApp.error(err, new Error(err));
@@ -121,11 +141,10 @@ public constructor() {
       res.end();
     }
   }));
-
 }
 
 // start Expressserver
-public async start(): Promise<void> {
+public async startREST(): Promise<void> {
   await this.db.connect();
   const options: {} = {
     key: fs.readFileSync("./server.key"),
@@ -133,17 +152,77 @@ public async start(): Promise<void> {
     cert: fs.readFileSync("./server.crt"),
   };
 
-  // this.app.listen(this.PORT, this.HOST);
   spdy
   .createServer(options, this.app)
-  .listen(this.PORT, this.HOST, (err) => {
+  .listen(this.RESTPORT, (err) => {
     if (err) {
       catApp.error(err, new Error(err));
     }
-    catApp.info(`Running on http://${this.HOST}:${this.PORT}`);
+    catApp.info(`REST Endpoint is running on https://${this.HOST}:${this.RESTPORT}`);
   });
 }
 
+// start HTTP/2 Streaming Server
+public async startStream(): Promise<void> {
+  // for https
+  /*const options = {
+    key: fs.readFileSync("./localhost-privkey.pem"),
+    // tslint:disable-next-line:object-literal-sort-keys
+    cert: fs.readFileSync("./localhost-cert.pem"),
+  };
+  // createSecureServer(options);
+  const server = http2.createServer();
+  server.on("stream", (stream, requestHeaders) => {
+    // only for dev
+    console.log(requestHeaders);
+    stream.respond({
+      ":status": 200,
+      "content-type": "text/html",
+    });
+    stream.end("secured hello world!");
+  });
+  server.listen(this.STREAMINGPORT);
+  catApp.info(`Streaming is running on http://${this.HOST}:${this.STREAMINGPORT}`);*/
+
 }
-// instanciate class and start http/2 express server
-new App().start();
+
+private async checkConnection(host: string, port: number): Promise<void> {
+  isPortReachable(port, {host: {host}}).then((reachable: boolean) => {
+    catApp.info(`${host}:${port} is ${reachable}`);
+    if (reachable) {
+      this.UI = new BrowserUI();
+    } else {
+      catApp.info("No connection to the UI possible");
+    }
+});
+}
+
+private async updateOnChanges(body: any): Promise<void> {
+  try {
+    this.UI.send(body);
+  } catch (error) {
+    catApp.error("ERROR", new Error(error));
+    catApp.info("Maybe the UI is not available");
+    if (this.UI) {
+        await this.UI.close();
+        try {
+          catApp.info("Try to recreate UI");
+          const reconStatus: boolean = await this.UI.reconnect();
+          if (reconStatus) {
+            this.UI.send(body);
+          }
+        } catch (e) {
+          catApp.info("Recreation not possible: ");
+          catApp.error("Error", new Error(e));
+        }
+      }
+    }
+  }
+}
+
+// instanciate class and start http/2 express server and http/2 streaming
+const DBController: IDatabase = new DatabaseController("mongo-0.mongo:27017", "test");
+const Webserver: App = new App(DBController, true);
+Webserver.startREST();
+
+// Webserver.startStream();

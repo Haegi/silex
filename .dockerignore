@@ -2,8 +2,5 @@ node_modules
 npm-debug.log
 .vscode
 dist
-server.crt
-server.csr
-server.key
 tslint.json
 src/tsconfig.json

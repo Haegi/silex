@@ -2,6 +2,18 @@ import * as mongo from "mongo-mock";
 import * as Mongo from "mongodb";
 import {catController} from "./logconfig";
 
+export interface IDatabase {
+  myCollection: any;
+  connect(): Promise<void>;
+  changeColl(collName: string): Promise<void>;
+  insert(value: IMessage): Promise<void>;
+  findAll(limit?: number): Promise<JSON>;
+  find(searchSchema: {}, limit?: number): Promise<JSON>;
+  sort(sortSchema: {}, searchSchema?: {}, limit?: number): Promise<JSON>;
+  deleteOne(query: {}): Promise<void>;
+  deleteMany(query: {}): Promise<void>;
+}
+
 export interface IMessage {
   topic: string;
   deviceID: string;
@@ -11,7 +23,7 @@ export interface IMessage {
 
 }
 
-export class DatabaseController {
+export class DatabaseController implements IDatabase {
   public url: string;
   public dbname: string;
   public collName: string;
@@ -34,7 +46,7 @@ export class DatabaseController {
     }
   }
 
-  // connect to MongoDB
+  // Connect to MongoDB
   public connect(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.MongoClient.connect(this.mongodburl, { useNewUrlParser: true }, (err, db) => {
@@ -88,7 +100,7 @@ export class DatabaseController {
     return new Promise((resolve, reject) => {
       this.myCollection.insert(value, (err, result) => {
         if (err) { reject(err); }
-        catController.info("Entry saved");
+        catController.info("Entry saved in DB");
         resolve();
       });
     });

@@ -2,8 +2,19 @@ sudo: required
 services:
 - docker
 language: bash
+branches:
+  only:
+  - master
+env:
+- NODE_ENV=testing
 script:
-- sudo apt-get install docker-ce=17.05.0~ce-0~ubuntu-trusty --allow-downgrades
+- |
+  echo "Updating Docker to have docker manifest command"
+  curl https://get.docker.com | sh
+  echo "Enabling docker client experimental features"
+  mkdir -p ~/.docker
+  echo '{ "experimental": "enabled" }' > ~/.docker/config.json
+  docker version
 # prepare qemu
 - docker run --rm --privileged multiarch/qemu-user-static:register --reset
 # build image
@@ -14,6 +25,13 @@ script:
 - >
   if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
     docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
-    docker tag haegi/silex haegi/silex:latest
-    docker push haegi/silex:latest
+    TAG=0.1
+    docker tag haegi/silex haegi/silex:arm-$TAG
+    docker push haegi/silex:arm-$TAG
+    docker manifest create haegi/silex:$TAG haegi/silex:arm-$TAG
+    docker manifest annotate haegi/silex:$TAG haegi/silex:arm-$TAG --os linux --arch arm --variant v6
+    docker manifest push haegi/silex:$TAG
+    docker manifest create haegi/silex haegi/silex:arm-$TAG
+    docker manifest annotate haegi/silex haegi/silex:arm-$TAG --os linux --arch arm --variant v6
+    docker manifest push haegi/silex
   fi

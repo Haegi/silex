@@ -1,30 +1,35 @@
 {
   "name": "silex_mongodb",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "This is a Typescript MongoDB integration for my Raspberry Pi Kubernetes",
   "author": "Benjamin Haegenlaeuer <benjamin@haegenlaeuer.de>",
   "main": "dist/app.js",
   "scripts": {
     "test": "npm run compile & SET NODE_ENV=testing& mocha ./dist/*spec.js",
-    "start": "SET NODE_ENV=testing& node ./dist/app.js",
+    "start": "node ./dist/app.js",
     "compile": "tsc -p ./src",
-    "deploy": "npm run compile & node ./dist/app.js"
+    "deploy": "npm run compile& node ./dist/app.js",
+    "play": "SET NODE_ENV=testing& node ./dist/app.js"
   },
   "dependencies": {
+    "chart.js": "^2.7.3",
     "express": "^4.16.4",
     "express-async-handler": "^1.1.4",
-    "mocha-typescript": "^1.1.17",
+    "is-port-reachable": "^2.0.0",
     "mongodb": "^3.1.10",
+    "net": "^1.0.2",
     "spdy": "^4.0.0",
-    "typescript-logging": "^0.6.3"
+    "typescript": "^3.2.2",
+    "vue-chartjs": "^3.4.0"
   },
   "devDependencies": {
     "@types/node": "^10.12.18",
     "assert": "^1.4.1",
     "mocha": "^5.2.0",
+    "mocha-typescript": "^1.1.17",
     "mongo-mock": "^3.3.2",
     "ts-node": "^7.0.1",
     "tslint": "^5.12.0",
-    "typescript": "^3.2.2"
+    "typescript-logging": "^0.6.3"
   }
 }

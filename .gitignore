@@ -2,8 +2,8 @@ node_modules
 npm-debug.log
 .vscode
 dist
-server.crt
 server.csr
-server.key
+localhost-privkey.pem
 tslint.json
 src/tsconfig.json
+package-lock.json
