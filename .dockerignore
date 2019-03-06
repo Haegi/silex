@@ -3,4 +3,3 @@ npm-debug.log
 .vscode
 dist
 tslint.json
-src/tsconfig.json
