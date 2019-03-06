@@ -7,6 +7,9 @@ branches:
   - master
 env:
 - NODE_ENV=testing
+install:
+- sudo apt update -y
+- sudo apt install --only-upgrade docker-ce -y
 script:
 - |
   echo "Updating Docker to have docker manifest command"
