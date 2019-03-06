@@ -5,5 +5,4 @@ dist
 server.csr
 localhost-privkey.pem
 tslint.json
-src/tsconfig.json
 package-lock.json
