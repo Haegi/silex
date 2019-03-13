@@ -35,8 +35,8 @@ export class DatabaseController implements IDatabase {
   public constructor(url, dbname) {
     this.url = url;
     this.dbname = dbname;
-    this.collName = "test";
-    this.mongodburl = `mongodb://${url}/${dbname}`;
+    this.collName = "IoT";
+    this.mongodburl = `mongodb://${url}`;
     if (process.env.NODE_ENV  === "testing") {
       this.MongoClient = mongo.MongoClient;
       catController.info(`Started in ${process.env.NODE_ENV} mode`);
@@ -49,13 +49,13 @@ export class DatabaseController implements IDatabase {
   // Connect to MongoDB
   public connect(): Promise<void> {
     return new Promise((resolve, reject) => {
-      this.MongoClient.connect(this.mongodburl, { useNewUrlParser: true }, (err, db) => {
+      this.MongoClient.connect(this.mongodburl, { useNewUrlParser: true }, (err, client) => {
         if (err) { reject(err); }
-        // logger
-        catController.info(`Connected to ${this.mongodburl}`);
+		
+		const db = client.db(this.dbname);
         this.myCollection = db.collection(this.collName);
         this.db = db;
-        db.close();
+        // db.close();
         resolve();
       });
     });
