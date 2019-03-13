@@ -35,7 +35,7 @@ export class DatabaseController implements IDatabase {
   public constructor(url, dbname) {
     this.url = url;
     this.dbname = dbname;
-    this.collName = "IoT";
+    this.collName = "test";
     this.mongodburl = `mongodb://${url}/${dbname}`;
     if (process.env.NODE_ENV  === "testing") {
       this.MongoClient = mongo.MongoClient;
