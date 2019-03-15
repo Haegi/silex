@@ -153,7 +153,7 @@ public async startREST(): Promise<void> {
   };
 
   await spdy
-  .createServer(options, this.app)
+  .createServer(this.app)
   .listen(this.RESTPORT, (err) => {
     if (err) {
       catApp.error(err, new Error(err));
