@@ -52,9 +52,11 @@ export class DatabaseController implements IDatabase {
       this.MongoClient.connect(this.mongodburl, { useNewUrlParser: true }, (err, client) => {
         if (err) { reject(err); }
 		
-		const db = client.db(this.dbname);
-        this.myCollection = db.collection(this.collName);
+		const db = await client.db(this.dbname);
+        await this.myCollection = db.collection(this.collName);
         this.db = db;
+		// logger
+        catController.info(`Connected to ${this.mongodburl}/${this.dbname}`);
         // db.close();
         resolve();
       });
