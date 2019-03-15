@@ -221,7 +221,7 @@ private async updateOnChanges(body: any): Promise<void> {
 }
 
 // instanciate class and start http/2 express server and http/2 streaming
-const DBController: IDatabase = await new DatabaseController("mongo-0.mongo:27017", "test");
+const DBController: IDatabase = new DatabaseController("mongo-0.mongo:27017", "test");
 const Webserver: App = new App(DBController, true);
 Webserver.startREST();
 
