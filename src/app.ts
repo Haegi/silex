@@ -20,13 +20,13 @@ private UI: IUserInterface;
 
 public constructor(db: IDatabase, UIConnection: boolean) {
   this.app = express();
-  const router = express.Router();
+  // const router = express.Router();
   this.app.use(express.json());
   this.db = db;
   // check for connection to UI on port 999
   if (UIConnection) {
     try {
-      this.checkConnection("silex-dashboard", 999);
+      this.checkConnection("10.244.1.72", 999);
     } catch (e) {
       catApp.warn(`catch triggered with exception ${e}`);
     }
@@ -152,7 +152,7 @@ public async startREST(): Promise<void> {
     cert: fs.readFileSync("./server.crt"),
   };
 
-  spdy
+  await spdy
   .createServer(options, this.app)
   .listen(this.RESTPORT, (err) => {
     if (err) {
