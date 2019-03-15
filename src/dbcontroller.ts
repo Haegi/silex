@@ -53,7 +53,7 @@ export class DatabaseController implements IDatabase {
         if (err) { reject(err); }
 		
 		const db = await client.db(this.dbname);
-        await this.myCollection = db.collection(this.collName);
+        this.myCollection = await db.collection(this.collName);
         this.db = db;
 		// logger
         catController.info(`Connected to ${this.mongodburl}/${this.dbname}`);
