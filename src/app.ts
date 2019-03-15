@@ -147,13 +147,11 @@ public constructor(db: IDatabase, UIConnection: boolean) {
 public async startREST(): Promise<void> {
   await this.db.connect();
   const options: {} = {
-    key: fs.readFileSync("./server.key"),
-    // tslint:disable-next-line:object-literal-sort-keys
-    cert: fs.readFileSync("./server.crt"),
+    ssl: false,
   };
 
-  await spdy
-  .createServer(this.app)
+  spdy
+  .createServer(options, this.app)
   .listen(this.RESTPORT, (err) => {
     if (err) {
       catApp.error(err, new Error(err));
