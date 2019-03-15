@@ -67,6 +67,7 @@ export class DatabaseController implements IDatabase {
     return new Promise((resolve, reject) => {
       try {
         const oldCollName: string = this.myCollection.name;
+        console.log(`Old Collection: ${this.myCollection.name}`);
         this.collName = collName;
         this.myCollection = this.db.collection(collName);
         catController.info(`Changed Colllection from ${oldCollName} to ${collName}`);

@@ -53,9 +53,7 @@ export class BrowserUI implements IUserInterface {
 
     public reconnect(): boolean {
         try {
-            this.client = http2.connect("https://localhost:999", {
-                ca: fs.readFileSync("./localhost-cert.pem"),
-            });
+            this.client = http2.connect("http://localhost:999");
             console.log("Recreation successfull");
             return true;
         } catch (error) {
