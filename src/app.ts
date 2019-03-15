@@ -1,9 +1,7 @@
 import * as express from "express";
 import {Application, Request, Response} from "express";
 import * as asyncHandler from "express-async-handler";
-import * as fs from "fs";
 import * as isPortReachable from "is-port-reachable";
-import * as spdy from "spdy";
 import { BrowserUI, IUserInterface } from "./dashboard";
 import { DatabaseController, IDatabase } from "./dbcontroller";
 import {catApp} from "./logconfig";
@@ -15,12 +13,11 @@ public db: IDatabase;
 
 // Constants
 private readonly RESTPORT: number = 8080;
-private readonly HOST: string = "0.0.0.0";
+private readonly HOST: string = "localhost";
 private UI: IUserInterface;
 
 public constructor(db: IDatabase, UIConnection: boolean) {
   this.app = express();
-  // const router = express.Router();
   this.app.use(express.json());
   this.db = db;
   // check for connection to UI on port 999
@@ -145,14 +142,9 @@ public constructor(db: IDatabase, UIConnection: boolean) {
 
 // start Expressserver
 public async startREST(): Promise<void> {
-  await this.db.connect();
-  const options: {} = {
-    ssl: false,
-  };
+  // await this.db.connect();
 
-  spdy
-  .createServer(options, this.app)
-  .listen(this.RESTPORT, (err) => {
+  this.app.listen(this.RESTPORT, (err) => {
     if (err) {
       catApp.error(err, new Error(err));
     }
