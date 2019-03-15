@@ -143,13 +143,13 @@ public constructor(db: IDatabase, UIConnection: boolean) {
 
 // start Expressserver
 public async startREST(): Promise<void> {
-  // await this.db.connect();
+  await this.db.connect();
 
   this.app.listen(this.RESTPORT, (err) => {
     if (err) {
       catApp.error(err, new Error(err));
     }
-    catApp.info(`REST Endpoint is running on https://${this.HOST}:${this.RESTPORT}`);
+    catApp.info(`REST Endpoint is running on http://${this.HOST}:${this.RESTPORT}`);
   });
 }
 
