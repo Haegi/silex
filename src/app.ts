@@ -39,6 +39,7 @@ public constructor(db: IDatabase, UIConnection: boolean) {
   this.app.get("/messaging/:collection/find", asyncHandler(async (req: Request, res: Response) => {
     // looks if parames :collection needs a other collection
     const collection: string = req.params.collection;
+    console.log(this.db.myCollection);
     if (this.db.myCollection.name !== collection) {
       // try/catch to switch the collection
       try {
