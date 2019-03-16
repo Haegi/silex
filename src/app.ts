@@ -23,7 +23,7 @@ public constructor(db: IDatabase, UIConnection: boolean) {
   // check for connection to UI on port 999
   if (UIConnection) {
     try {
-      this.checkConnection("10.244.1.72", 999);
+      this.checkConnection("silex-dashboard", 999);
     } catch (e) {
       catApp.warn(`catch triggered with exception ${e}`);
     }
@@ -39,8 +39,6 @@ public constructor(db: IDatabase, UIConnection: boolean) {
   this.app.get("/messaging/:collection/find", asyncHandler(async (req: Request, res: Response) => {
     // looks if parames :collection needs a other collection
     const collection: string = req.params.collection;
-    console.log(this.db.myCollection.name);
-    console.log(collection);
     if (this.db.myCollection.name !== collection) {
       // try/catch to switch the collection
       try {

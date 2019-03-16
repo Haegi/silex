@@ -53,7 +53,7 @@ export class BrowserUI implements IUserInterface {
 
     public reconnect(): boolean {
         try {
-            this.client = http2.connect("http://localhost:999");
+            this.client = http2.connect("http://silex-dashboard:999");
             console.log("Recreation successfull");
             return true;
         } catch (error) {
