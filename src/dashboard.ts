@@ -14,9 +14,7 @@ export class BrowserUI implements IUserInterface {
     private client;
     constructor() {
         // HTTPS STREAMING
-        this.client = http2.connect("https://localhost:999", {
-            ca: fs.readFileSync("./localhost-cert.pem"),
-        });
+        this.client = http2.connect("http://silex-dashboard:999");
         console.log("Connected to UI");
         // Old HTTP version
         // this.client = http2.connect("http://localhost:999");
