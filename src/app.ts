@@ -177,7 +177,7 @@ public async startStream(): Promise<void> {
 }
 
 private async checkConnection(host: string, port: number): Promise<void> {
-  isPortReachable(port, {host: {host}}).then((reachable: boolean) => {
+  isPortReachable(port, {host: `${host}`}).then((reachable: boolean) => {
     catApp.info(`${host}:${port} is ${reachable}`);
     if (reachable) {
       this.UI = new BrowserUI();
