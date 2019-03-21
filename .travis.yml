@@ -27,12 +27,15 @@ script:
   mkdir -p ~/.docker
   echo '{ "experimental": "enabled" }' > ~/.docker/config.json
   docker version
+# test code
+- sudo npm run compile
+- sudo npm run build
 # prepare qemu
 - docker run --rm --privileged multiarch/qemu-user-static:register --reset
 # build image
 - docker build -t haegi/silex .
 # test image
-- docker run --env NODE_ENV="testing" -p 8080:8080 haegi/silex:latest
+
 # push image
 - >
   if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
