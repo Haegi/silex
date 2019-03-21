@@ -152,30 +152,6 @@ public async startREST(): Promise<void> {
   });
 }
 
-// start HTTP/2 Streaming Server
-public async startStream(): Promise<void> {
-  // for https
-  /*const options = {
-    key: fs.readFileSync("./localhost-privkey.pem"),
-    // tslint:disable-next-line:object-literal-sort-keys
-    cert: fs.readFileSync("./localhost-cert.pem"),
-  };
-  // createSecureServer(options);
-  const server = http2.createServer();
-  server.on("stream", (stream, requestHeaders) => {
-    // only for dev
-    console.log(requestHeaders);
-    stream.respond({
-      ":status": 200,
-      "content-type": "text/html",
-    });
-    stream.end("secured hello world!");
-  });
-  server.listen(this.STREAMINGPORT);
-  catApp.info(`Streaming is running on http://${this.HOST}:${this.STREAMINGPORT}`);*/
-
-}
-
 private async checkConnection(host: string, port: number): Promise<void> {
   isPortReachable(port, {host: `${host}`}).then((reachable: boolean) => {
     catApp.info(`${host}:${port} is ${reachable}`);
@@ -211,8 +187,13 @@ private async updateOnChanges(body: any): Promise<void> {
 }
 
 // instanciate class and start http/2 express server and http/2 streaming
-const DBController: IDatabase = new DatabaseController("mongo-0.mongo:27017", "test");
+let DBController: IDatabase;
+if (process.env.NODE_ENV === "testing") {
+  DBController = new DatabaseController("127.0.0.1:27017", "test");
+  catApp.info(`Started in ${process.env.NODE_ENV} mode`);
+} else {
+  DBController = new DatabaseController("mongo-0.mongo:27017", "test");
+  catApp.info(`Started in default mode`);
+}
 const Webserver: App = new App(DBController, true);
 Webserver.startREST();
-
-// Webserver.startStream();

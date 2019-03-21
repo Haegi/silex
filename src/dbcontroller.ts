@@ -1,4 +1,3 @@
-import * as mongo from "mongo-mock";
 import * as Mongo from "mongodb";
 import {catController} from "./logconfig";
 
@@ -37,13 +36,7 @@ export class DatabaseController implements IDatabase {
     this.dbname = dbname;
     this.collName = "IoT";
     this.mongodburl = `mongodb://${url}`;
-    if (process.env.NODE_ENV  === "testing") {
-      this.MongoClient = mongo.MongoClient;
-      catController.info(`Started in ${process.env.NODE_ENV} mode`);
-    } else {
-      this.MongoClient = Mongo.MongoClient;
-      catController.info(`Started in ${process.env.NODE_ENV} mode`);
-    }
+    this.MongoClient = Mongo.MongoClient;
   }
 
   // Connect to MongoDB

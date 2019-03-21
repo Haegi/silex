@@ -1,6 +1,7 @@
 sudo: required
 services:
 - docker
+- mongodb
 language: bash
 branches:
   only:
@@ -10,6 +11,9 @@ env:
 install:
 - sudo apt update -y
 - sudo apt install --only-upgrade docker-ce -y
+before_script:
+  - sleep 15
+  - mongo test --eval 'db.createCollection('IoT')'
 script:
 - |
   echo "Updating Docker to have docker manifest command"
@@ -23,7 +27,7 @@ script:
 # build image
 - docker build -t haegi/silex .
 # test image
-
+- docker run -e NODE_ENV="testing" -p 8080:8080 haegi/silex
 # push image
 - >
   if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
