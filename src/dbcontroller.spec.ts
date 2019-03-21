@@ -8,7 +8,7 @@ import DBWrapper from "./dbwrapper";
   private classUnderTest: DatabaseController;
 
   private async before(): Promise<void> {
-    this.classUnderTest = await DBWrapper.getInstance("mongo-0.mongo:27017", "test");
+    this.classUnderTest = await DBWrapper.getInstance("127.0.0.1:43448", "test");
   }
   private afterAll(): void {
     this.classUnderTest.close();
@@ -17,7 +17,7 @@ import DBWrapper from "./dbwrapper";
   @test private async testDBconnection(): Promise<void> {
     await this.classUnderTest.connect();
     const connection: string = await this.classUnderTest.mongodburl;
-    assert.equal(connection, "mongodb://mongo-0.mongo:27017/test");
+    assert.equal(connection, "mongodb://127.0.0.1:43448/test");
   }
 
   @test private async testChangeCollection(): Promise<void> {
