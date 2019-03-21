@@ -189,7 +189,7 @@ private async updateOnChanges(body: any): Promise<void> {
 // instanciate class and start http/2 express server and http/2 streaming
 let DBController: IDatabase;
 if (process.env.NODE_ENV === "testing") {
-  DBController = new DatabaseController("127.0.0.1:27017", "test");
+  DBController = new DatabaseController("127.0.0.1:43448", "test");
   catApp.info(`Started in ${process.env.NODE_ENV} mode`);
 } else {
   DBController = new DatabaseController("mongo-0.mongo:27017", "test");

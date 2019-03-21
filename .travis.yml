@@ -1,7 +1,6 @@
 sudo: required
 services:
 - docker
-- mongodb
 language: bash
 branches:
   only:
@@ -33,7 +32,7 @@ script:
 # build image
 - docker build -t haegi/silex .
 # test image
-- docker run -e NODE_ENV="testing" -p 8080:8080 haegi/silex
+- docker run --env NODE_ENV="testing" -p 8080:8080 haegi/silex:latest
 # push image
 - >
   if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
