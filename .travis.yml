@@ -20,7 +20,7 @@ install:
 - sudo apt install --only-upgrade docker-ce -y
 before_script:
   - sleep 15
-  - mongo test --eval 'db.createCollection('IoT')'
+  - mongo test db.createCollection("IoT")
 script:
 - |
   echo "Updating Docker to have docker manifest command"
