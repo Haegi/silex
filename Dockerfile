@@ -31,9 +31,10 @@ RUN sudo npm i
 COPY . .
 
 
+RUN sudo npm run compile
 RUN ls
 # test code
-RUN sudo npm run test
+RUN sudo npm run build
 
 # compile typescript code
 RUN sudo npm run compile

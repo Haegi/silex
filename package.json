@@ -9,7 +9,8 @@
     "start": "node ./dist/app.js",
     "compile": "tsc -p ./src",
     "deploy": "npm run compile& node ./dist/app.js",
-    "play": "SET NODE_ENV=testing& node ./dist/app.js"
+    "play": "SET NODE_ENV=testing& node ./dist/app.js",
+    "build": "NODE_ENV=testing mocha ./dist/*spec.js"
   },
   "dependencies": {
     "chart.js": "^2.7.3",
