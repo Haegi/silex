@@ -5,7 +5,7 @@
   "author": "Benjamin Haegenlaeuer <benjamin@haegenlaeuer.de>",
   "main": "dist/app.js",
   "scripts": {
-    "test": "npm run compile & SET NODE_ENV=testing& mocha ./dist/*spec.js",
+    "test": "npm run compile & NODE_ENV=testing& mocha ./dist/*spec.js",
     "start": "node ./dist/app.js",
     "compile": "tsc -p ./src",
     "deploy": "npm run compile& node ./dist/app.js",
