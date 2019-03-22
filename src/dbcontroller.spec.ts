@@ -17,7 +17,7 @@ import DBWrapper from "./dbwrapper";
   @test private async testDBconnection(): Promise<void> {
     await this.classUnderTest.connect();
     const connection: string = await this.classUnderTest.mongodburl;
-    assert.equal(connection, "mongodb://127.0.0.1:27017/test");
+    assert.equal(connection, "mongodb://127.0.0.1:27017");
   }
 
   @test private async testChangeCollection(): Promise<void> {
