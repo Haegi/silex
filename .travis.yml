@@ -30,6 +30,7 @@ script:
   echo '{ "experimental": "enabled" }' > ~/.docker/config.json
   docker version
 # test code
+- npm i
 - npm run compile
 - npm run build
 # prepare qemu
