@@ -103,7 +103,7 @@ export class DatabaseController implements IDatabase {
 
   // find all data in the current collection
   // limit is returning the newest data
-  public findAll(limit?: number): Promise<JSON> {
+  public findAll(limit: number = 10): Promise<JSON> {
     return new Promise((resolve, reject) => {
       this.myCollection.find().limit(limit).toArray((err, result) => {
         if (err) { reject(err); }
@@ -113,7 +113,7 @@ export class DatabaseController implements IDatabase {
   }
 
   // find data in current collection with searchSchema and optional limit
-  public find(searchSchema: {}, limit?: number): Promise<JSON> {
+  public find(searchSchema: {}, limit: number = 10): Promise<JSON> {
     return new Promise((resolve, reject) => {
       this.myCollection.find(searchSchema).limit(limit).toArray((err, result) => {
         if (err) { reject(err); }
@@ -123,7 +123,7 @@ export class DatabaseController implements IDatabase {
   }
 
   // Sort your search
-  public sort(sortSchema: {}, searchSchema?: {}, limit?: number): Promise<JSON> {
+  public sort(sortSchema: {}, searchSchema?: {}, limit: number = 10): Promise<JSON> {
     return new Promise((resolve, reject) => {
       this.myCollection.find(searchSchema).limit(limit).sort(sortSchema).toArray((err, result) => {
         if (err) { reject(err); }
