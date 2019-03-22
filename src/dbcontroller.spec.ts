@@ -21,9 +21,9 @@ import DBWrapper from "./dbwrapper";
   }
 
   @test private async testChangeCollection(): Promise<void> {
-    await this.classUnderTest.changeColl("newColl");
-    const collName: string = this.classUnderTest.myCollection.name;
-    assert.equal(collName, "newColl");
+    await this.classUnderTest.changeColl("ml");
+    const collName: Promise<string> =  this.classUnderTest.getCollectionName();
+    assert.equal(collName, "ml");
 
   }
 
@@ -123,7 +123,7 @@ import DBWrapper from "./dbwrapper";
                                 value: "1",
                               } };
     await this.classUnderTest.insert(insertValue);
-    await this.classUnderTest.changeColl("newColl");
+    await this.classUnderTest.changeColl("ml");
     const newCollValue: JSON = await this.classUnderTest.findAll();
     const newCollLength: number = Object.keys(newCollValue).length;
     await this.classUnderTest.changeColl("IoT");

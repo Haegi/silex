@@ -23,19 +23,19 @@ export interface IMessage {
 }
 
 export class DatabaseController implements IDatabase {
-  public url: string;
   public dbname: string;
-  public collName: string;
   public mongodburl: string;
   public myCollection: any;
+  private collName: string;
   private db: any;
   private MongoClient: any;
+  private url: string;
 
   public constructor(url, dbname) {
     this.url = url;
     this.dbname = dbname;
     this.collName = "IoT";
-    this.mongodburl = `mongodb://${url}`;
+    this.mongodburl = `mongodb://${this.url}`;
     this.MongoClient = Mongo.MongoClient;
   }
 

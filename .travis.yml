@@ -21,6 +21,7 @@ install:
 - sudo apt install --only-upgrade docker-ce -y
 before_script:
   - mongo test --eval 'db.createCollection("IoT");'
+  - mongo test --eval 'db.createCollection("ml");'
 script:
 - |
   echo "Updating Docker to have docker manifest command"
@@ -32,7 +33,7 @@ script:
 # test code
 - npm i
 - npm run compile
-- npm run build
+- npm run test-ci
 # prepare qemu
 - docker run --rm --privileged multiarch/qemu-user-static:register --reset
 # build image

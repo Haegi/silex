@@ -5,12 +5,12 @@
   "author": "Benjamin Haegenlaeuer <benjamin@haegenlaeuer.de>",
   "main": "dist/app.js",
   "scripts": {
-    "test": "npm run compile & NODE_ENV=testing& mocha ./dist/*spec.js",
+    "test-local": "npm run compile & NODE_ENV=testing& mocha ./dist/*spec.js",
     "start": "node ./dist/app.js",
     "compile": "tsc -p ./src",
     "deploy": "npm run compile& node ./dist/app.js",
     "play": "SET NODE_ENV=testing& node ./dist/app.js",
-    "build": "export NODE_ENV=testing && mocha ./dist/*spec.js"
+    "test-ci": "export NODE_ENV=testing && mocha ./dist/*spec.js"
   },
   "dependencies": {
     "chart.js": "^2.7.3",
