@@ -1,7 +1,9 @@
 sudo: required
 services:
 - docker
-language: bash
+language: node_js
+node_js:
+  - "10"
 branches:
   only:
   - master
