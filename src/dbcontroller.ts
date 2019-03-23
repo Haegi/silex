@@ -81,14 +81,13 @@ export class DatabaseController implements IDatabase {
     });
   }
 
-  public getCollectionName(): Promise<string> {
-    return new Promise((resolve, reject) => {
-        console.log(this.myCollection);
-        if (this.myCollection &&  this.collName) {
-          resolve(this.collName);
-        }
-        reject("Collection name is not sure");
-    });
+  public getCollectionName(): string {
+      console.log(this.myCollection.s);
+      if (this.myCollection &&  this.collName) {
+        return(this.collName);
+      } else {
+        catController.error("ERROR", new Error("Collection name is not sure"));
+      }
   }
 
   // insert something

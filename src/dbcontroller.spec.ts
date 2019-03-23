@@ -22,7 +22,7 @@ import DBWrapper from "./dbwrapper";
 
   @test private async testChangeCollection(): Promise<void> {
     await this.classUnderTest.changeColl("ml");
-    const collName: Promise<string> =  this.classUnderTest.getCollectionName();
+    const collName: string =  this.classUnderTest.getCollectionName();
     assert.equal(collName, "ml");
 
   }
