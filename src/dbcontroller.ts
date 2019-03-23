@@ -59,8 +59,7 @@ export class DatabaseController implements IDatabase {
   public changeColl(collName: string): Promise<void> {
     return new Promise((resolve, reject) => {
       try {
-        const oldCollName: string = this.myCollection.name;
-        console.log(`Old Collection: ${this.myCollection.name}`);
+        const oldCollName: string = this.myCollection.s.name;
         this.collName = collName;
         this.myCollection = this.db.collection(collName);
         catController.info(`Changed Colllection from ${oldCollName} to ${collName}`);
@@ -82,7 +81,6 @@ export class DatabaseController implements IDatabase {
   }
 
   public getCollectionName(): string {
-      // console.log(this.myCollection.s.name);
       if (this.myCollection &&  this.collName && this.myCollection.s.name === this.collName) {
         return(this.myCollection.s.name);
       } else {
