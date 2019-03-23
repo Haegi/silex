@@ -39,7 +39,7 @@ public constructor(db: IDatabase, UIConnection: boolean) {
   this.app.get("/messaging/:collection/find", asyncHandler(async (req: Request, res: Response) => {
     // looks if parames :collection needs a other collection
     const collection: string = req.params.collection;
-    if (this.db.myCollection.name !== collection) {
+    if (this.db.getCollectionName() !== collection) {
       // try/catch to switch the collection
       try {
         await this.db.changeColl(collection);
@@ -74,7 +74,7 @@ public constructor(db: IDatabase, UIConnection: boolean) {
     } else if (Object.keys(req.body).length === 5) {
     // looks if parames :collection needs a other collection
     const collection: string = req.params.collection;
-    if (this.db.myCollection.name !== collection) {
+    if (this.db.getCollectionName() !== collection) {
       // try/catch to switch the collection
       try {
         await this.db.changeColl(collection);
@@ -110,7 +110,7 @@ public constructor(db: IDatabase, UIConnection: boolean) {
     } else if (Object.keys(req.body).length === 2) {
       // looks if parames :collection needs a other collection
     const collection: string = req.params.collection;
-    if (this.db.myCollection.name !== collection) {
+    if (this.db.getCollectionName() !== collection) {
       // try/catch to switch the collection
       try {
         await this.db.changeColl(collection);

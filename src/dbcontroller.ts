@@ -2,7 +2,6 @@ import * as Mongo from "mongodb";
 import {catController} from "./logconfig";
 
 export interface IDatabase {
-  myCollection: any;
   connect(): Promise<void>;
   changeColl(collName: string): Promise<void>;
   insert(value: IMessage): Promise<void>;
@@ -11,6 +10,7 @@ export interface IDatabase {
   sort(sortSchema: {}, searchSchema?: {}, limit?: number): Promise<JSON>;
   deleteOne(query: {}): Promise<void>;
   deleteMany(query: {}): Promise<void>;
+  getCollectionName(): string;
 }
 
 export interface IMessage {
@@ -25,7 +25,7 @@ export interface IMessage {
 export class DatabaseController implements IDatabase {
   public dbname: string;
   public mongodburl: string;
-  public myCollection: any;
+  private myCollection: any;
   private collName: string;
   private db: any;
   private MongoClient: any;
@@ -82,9 +82,9 @@ export class DatabaseController implements IDatabase {
   }
 
   public getCollectionName(): string {
-      console.log(this.myCollection.s.name);
-      if (this.myCollection &&  this.collName) {
-        return(this.collName);
+      // console.log(this.myCollection.s.name);
+      if (this.myCollection &&  this.collName && this.myCollection.s.name === this.collName) {
+        return(this.myCollection.s.name);
       } else {
         catController.error("ERROR", new Error("Collection name is not sure"));
       }
