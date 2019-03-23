@@ -82,7 +82,7 @@ export class DatabaseController implements IDatabase {
   }
 
   public getCollectionName(): string {
-      console.log(this.myCollection.s);
+      console.log(this.myCollection.s.name);
       if (this.myCollection &&  this.collName) {
         return(this.collName);
       } else {
