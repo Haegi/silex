@@ -30,6 +30,8 @@ RUN sudo npm i
 # Bundle app source
 COPY . .
 
+RUN sudo ls
+
 # compile typescript code
 RUN sudo npm run compile
 
