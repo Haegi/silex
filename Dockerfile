@@ -11,7 +11,7 @@ RUN cd ..
 RUN sudo npm -v
 RUN sudo node -v
 
-uninstall wget
+# uninstall wget
 RUN sudo apt-get remove wget
 
 ENV SILEX_VERSION 0.1
