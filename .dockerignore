@@ -4,3 +4,5 @@ npm-debug.log
 dist
 tslint.json
 package-lock.json
+mongodb-linux-x86_64-3.2.10
+mongodb-linux-x86_64-3.2.10.tgz

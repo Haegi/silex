@@ -3,7 +3,6 @@ FROM balenalib/rpi-raspbian:stretch
 
 RUN apt-get update
 RUN apt-get upgrade -y
-RUN apt-get dist-upgrade -y
 RUN apt-get install wget
 RUN wget https://nodejs.org/dist/v11.10.1/node-v11.10.1-linux-armv7l.tar.gz
 RUN tar -xvf node-v11.10.1-linux-armv7l.tar.gz
@@ -11,6 +10,9 @@ RUN cd node-v11.10.1-linux-armv7l/ && sudo cp -R * /usr/local/ #attention copies
 RUN cd ..
 RUN sudo npm -v
 RUN sudo node -v
+
+uninstall wget
+RUN sudo apt-get remove wget
 
 ENV SILEX_VERSION 0.1
 
