@@ -10,10 +10,11 @@ import { DatabaseController, IMessage } from "./dbcontroller";
     this.classUnderTest = new DatabaseController("127.0.0.1:27017", "test");
     console.log(`BEFORE`);
   }
-  public after(): void {
-    this.classUnderTest.close();
+
+  /*public after(): void {
     console.log(`AFTER`);
-  }
+    this.classUnderTest.close();
+  }*/
 
   @test private async testDBconnection(): Promise<void> {
     await this.classUnderTest.connect();
