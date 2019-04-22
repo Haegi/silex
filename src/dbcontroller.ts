@@ -5,9 +5,9 @@ export interface IDatabase {
   connect(): Promise<void>;
   changeColl(collName: string): Promise<void>;
   insert(value: IMessage): Promise<void>;
-  findAll(limit?: number): Promise<JSON>;
-  find(searchSchema: {}, limit?: number): Promise<JSON>;
-  sort(sortSchema: {}, searchSchema?: {}, limit?: number): Promise<JSON>;
+  findAll(limit?): Promise<JSON>;
+  find(searchSchema: {}, limit?): Promise<JSON>;
+  sort(sortSchema: {}, searchSchema?: {}, limit?): Promise<JSON>;
   deleteOne(query: {}): Promise<void>;
   deleteMany(query: {}): Promise<void>;
   getCollectionName(): string;
@@ -101,7 +101,7 @@ export class DatabaseController implements IDatabase {
 
   // find all data in the current collection
   // limit is returning the newest data
-  public findAll(limit: number = 10): Promise<JSON> {
+  public findAll(limit = 10): Promise<JSON> {
     return new Promise((resolve, reject) => {
       this.myCollection.find().limit(limit).toArray((err, result) => {
         if (err) { reject(err); }
@@ -121,7 +121,7 @@ export class DatabaseController implements IDatabase {
   }
 
   // Sort your search
-  public sort(sortSchema: {}, searchSchema?: {}, limit: number = 10): Promise<JSON> {
+  public sort(sortSchema: {}, searchSchema?: {}, limit = 10): Promise<JSON> {
     return new Promise((resolve, reject) => {
       this.myCollection.find(searchSchema).limit(limit).sort(sortSchema).toArray((err, result) => {
         if (err) { reject(err); }
