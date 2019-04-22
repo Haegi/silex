@@ -1,14 +1,13 @@
 import * as assert from "assert";
 import { suite, test } from "mocha-typescript";
 import { DatabaseController, IMessage } from "./dbcontroller";
-import DBWrapper from "./dbwrapper";
 
 @suite class DBControllerTests {
 
   private classUnderTest: DatabaseController;
 
   private async before(): Promise<void> {
-    this.classUnderTest = await DBWrapper.getInstance("127.0.0.1:27017", "test");
+    this.classUnderTest = new DatabaseController("127.0.0.1:27017", "test");
   }
   private afterAll(): void {
     this.classUnderTest.close();

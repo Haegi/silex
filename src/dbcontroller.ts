@@ -111,9 +111,8 @@ export class DatabaseController implements IDatabase {
   }
 
   // find data in current collection with searchSchema and optional limit
-  public find(searchSchema: {}): Promise<JSON> {
+  public find(searchSchema: {}, limit = 10): Promise<JSON> {
     return new Promise((resolve, reject) => {
-      const limit = 10;
       this.myCollection.find(searchSchema).limit(limit).toArray((err, result) => {
         if (err) { reject(err); }
         resolve(result);
