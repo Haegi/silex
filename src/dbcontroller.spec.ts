@@ -6,7 +6,7 @@ import { DatabaseController, IMessage } from "./dbcontroller";
 
   private classUnderTest: DatabaseController;
 
-  public before(): void {
+  public beforeAll(): void {
     this.classUnderTest = new DatabaseController("127.0.0.1:27017", "test");
     console.log(`BEFORE`);
   }
