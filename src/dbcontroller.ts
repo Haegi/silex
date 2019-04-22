@@ -49,7 +49,6 @@ export class DatabaseController implements IDatabase {
         this.myCollection = await db.collection(this.collName);
         this.db = db;
         catController.info(`Connected to ${this.mongodburl}/${this.dbname}`);
-        // db.close();
         resolve();
       });
     });

@@ -8,13 +8,7 @@ import { DatabaseController, IMessage } from "./dbcontroller";
 
   private static before(): void {
     this.classUnderTest = new DatabaseController("127.0.0.1:27017", "test");
-    console.log(`BEFORE`);
   }
-
-  /*public after(): void {
-    console.log(`AFTER`);
-    this.classUnderTest.close();
-  }*/
 
   @test private async testDBconnection(): Promise<void> {
     await DBControllerTests.classUnderTest.connect();
@@ -158,5 +152,10 @@ import { DatabaseController, IMessage } from "./dbcontroller";
     const values: JSON = await DBControllerTests.classUnderTest.sort(sortSchema, undefined, 2);
     const actual: number = Object.keys(values).length;
     assert.equal(actual, 2);
+  }
+
+  // tslint:disable-next-line:member-ordering
+  private static after(): void {
+    this.classUnderTest.close();
   }
 }
