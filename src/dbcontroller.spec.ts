@@ -4,9 +4,9 @@ import { DatabaseController, IMessage } from "./dbcontroller";
 
 @suite class DBControllerTests {
 
-  private classUnderTest: DatabaseController;
+  private static classUnderTest: DatabaseController;
 
-  public beforeAll(): void {
+  private static before(): void {
     this.classUnderTest = new DatabaseController("127.0.0.1:27017", "test");
     console.log(`BEFORE`);
   }
