@@ -13,14 +13,12 @@
     "test-ci": "export NODE_ENV=testing && mocha --exit ./dist/*spec.js"
   },
   "dependencies": {
-    "chart.js": "^2.7.3",
     "express": "^4.16.4",
     "express-async-handler": "^1.1.4",
     "is-port-reachable": "^2.0.0",
     "mongodb": "^3.1.10",
     "net": "^1.0.2",
-    "typescript": "^3.2.2",
-    "vue-chartjs": "^3.4.0"
+    "typescript": "^3.2.2"
   },
   "devDependencies": {
     "@types/node": "^10.12.18",

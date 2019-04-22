@@ -1,4 +1,3 @@
-import * as fs from "fs";
 import * as http2 from "http2";
 
 export interface IUserInterface {
