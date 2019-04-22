@@ -6,10 +6,10 @@ import { DatabaseController, IMessage } from "./dbcontroller";
 
   private classUnderTest: DatabaseController;
 
-  private async before(): Promise<void> {
+  private async beforeEach(): Promise<void> {
     this.classUnderTest = new DatabaseController("127.0.0.1:27017", "test");
   }
-  private after(): void {
+  private afterEach(): void {
     this.classUnderTest.close();
   }
 
@@ -20,7 +20,6 @@ import { DatabaseController, IMessage } from "./dbcontroller";
   }
 
   @test private async testChangeCollection(): Promise<void> {
-    console.log(this.classUnderTest);
     await this.classUnderTest.changeColl("ml");
     const collName: string =  this.classUnderTest.getCollectionName();
     assert.equal(collName, "ml");
