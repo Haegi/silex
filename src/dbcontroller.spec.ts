@@ -6,11 +6,13 @@ import { DatabaseController, IMessage } from "./dbcontroller";
 
   private classUnderTest: DatabaseController;
 
-  private async beforeEach(): Promise<void> {
+  public before(): void {
     this.classUnderTest = new DatabaseController("127.0.0.1:27017", "test");
+    console.log(`BEFORE`);
   }
-  private afterEach(): void {
+  public after(): void {
     this.classUnderTest.close();
+    console.log(`AFTER`);
   }
 
   @test private async testDBconnection(): Promise<void> {
