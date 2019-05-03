@@ -9,7 +9,7 @@ export interface IDatabase {
   find(searchSchema: {}, limit?): Promise<JSON>;
   sort(sortSchema: {}, searchSchema?: {}, limit?): Promise<JSON>;
   deleteOne(query: {}): Promise<void>;
-  deleteMany(query: {}): Promise<void>;
+  deleteMany(query: {}): Promise<string>;
   getCollectionName(): string;
 }
 
@@ -149,15 +149,16 @@ export class DatabaseController implements IDatabase {
 
   // deletion of many entries
   // query could be regex for example
-  public deleteMany(query: {}): Promise<void> {
+  public deleteMany(query: {}): Promise<string> {
     return new Promise(async (resolve, reject) => {
       // check if there is any value to delete
       const empty: boolean = await this.checkForValue(query);
       if (empty) {
       this.myCollection.deleteMany(query, (err, obj) => {
         if (err) { reject(err); }
-        catController.info(`${obj.result.n} docuemnt(s) deleted`);
-        resolve();
+        const status: string = `${obj.result.n} docuemnt(s) deleted`;
+        catController.info(status);
+        resolve(status);
       });
     } else {
       // else there are no values in the collection

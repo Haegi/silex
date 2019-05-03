@@ -124,8 +124,8 @@ public constructor(db: IDatabase, UIConnection: boolean) {
         await this.db.deleteOne(req.body.query);
         res.status(200).send("Deleted");
       } else if (req.body.type === "many") {
-        await this.db.deleteMany(req.body.query);
-        res.status(200).send("Deleted");
+        const statusMany: string = await this.db.deleteMany(req.body.query);
+        res.status(200).send(statusMany);
       } else {
         res.sendStatus(400);
       }

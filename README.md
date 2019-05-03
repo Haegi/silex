@@ -18,7 +18,7 @@ For fixes and features please check the changelog.
 ## TO-DO
 - finish express server(✓)
 - change node.js to typescript(✓)
-- create unit tests   
+- create unit tests(✓) 
 - (optional) create code convergence
 - drop collections currently only manuell
 - create http/2 and https server(✓)
@@ -44,7 +44,7 @@ Sort:
 { key: -1 } // descending
 
 ## HTTP/2 Rest Endpoint
-https://localhost:8080   
+http://192.168.0.100:31672/   
 Default collecions is "IoT"
 GET   
 /messaging/:collection/find
@@ -80,4 +80,4 @@ DELETE
 }
 ```
 ## HTTP/2 Streaming TO UI
-This controller streams the insert to https://localhost:999, which is a HTTP/2 connection.
+This controller streams the insert to http://silex-dashboard:999, which is a HTTP/2 connection.
