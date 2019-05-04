@@ -90,6 +90,10 @@ export class DatabaseController implements IDatabase {
   // insert something
   public insert(value: IMessage): Promise<void> {
     return new Promise((resolve, reject) => {
+
+      console.log(value)
+      value["timestamp"] = 0;
+      console.log(value)
       this.myCollection.insert(value, (err, result) => {
         if (err) { reject(err); }
         catController.info("Entry saved in DB");
