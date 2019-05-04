@@ -60,18 +60,9 @@ import { DatabaseController, IMessage } from "./dbcontroller";
   }
 
   @test private async testFindOne(): Promise<void> {
-    const excpectedMessage: IMessage = { topic: "Unittest 2",
-    // tslint:disable-next-line:object-literal-sort-keys
-    deviceID: "2",
-    messageType: "message",
-    timestamp: Date.now(),
-    content: {
-      value: "This is the second message",
-    } };
     const searchSchema: {} = {deviceID: "2"};
     const value: JSON = await DBControllerTests.classUnderTest.find(searchSchema);
-    console.log(value)
-    assert.equal(value, excpectedMessage);
+    assert.equal(values[1].topic, "Unittest 2");
   }
 
   @test private async testSort(): Promise<void> {
