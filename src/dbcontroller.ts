@@ -17,9 +17,7 @@ export interface IMessage {
   topic: string;
   deviceID: string;
   messageType: string;
-  timestamp: number;
   content: {};
-
 }
 
 export class DatabaseController implements IDatabase {
