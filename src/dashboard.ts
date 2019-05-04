@@ -37,7 +37,7 @@ export class BrowserUI implements IUserInterface {
           catDashboard.info(chunk.toString("utf8"));
       });
         this.req.on("error", (error) => {
-          catController.error("ERROR!", new Error(error));
+          catDashboard.error("ERROR!", new Error(error));
           this.client.destroy();
       });
     }
@@ -52,7 +52,7 @@ export class BrowserUI implements IUserInterface {
           catDashboard.info("Recreation successfull");
           return true;
         } catch (error) {
-          catController.error("ERROR! Can't reconnect", new Error(error));
+          catDashboard.error("ERROR! Can't reconnect", new Error(error));
           return false;
         }
     }
