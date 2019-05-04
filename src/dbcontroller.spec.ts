@@ -72,7 +72,7 @@ import { DatabaseController, IMessage } from "./dbcontroller";
     const value: JSON = await DBControllerTests.classUnderTest.find(searchSchema);
     // const actual: number = Object.keys(value).length;
     console.log(value);
-    assert.equal(1, 2);
+    assert.equal(1, "2");
   }
 
   @test private async testSort(): Promise<void> {
