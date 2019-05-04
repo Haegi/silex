@@ -56,7 +56,7 @@ import { DatabaseController, IMessage } from "./dbcontroller";
     await DBControllerTests.classUnderTest.insert(value);
     const values: JSON = await DBControllerTests.classUnderTest.findAll();
     const actual: string = values[1].topic;
-    assert.equal(actual, "Unittest 2");
+    assert.equal(actual, "Unittet 2");
   }
 
   @test private async testFindOne(): Promise<void> {
