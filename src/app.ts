@@ -71,7 +71,7 @@ public constructor(db: IDatabase, UIConnection: boolean) {
     if (Object.keys(req.body).length === 0) {
       res.status(400).send("You need to insert something to insert");
       res.end();
-    } else if (Object.keys(req.body).length === 5) {
+    } else if (Object.keys(req.body).length === 4) {
       // looks if parames :collection needs a other collection
       const collection: string = req.params.collection;
       if (this.db.getCollectionName() !== collection) {
