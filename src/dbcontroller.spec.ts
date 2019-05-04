@@ -123,7 +123,7 @@ import { DatabaseController, IMessage } from "./dbcontroller";
     const newCollLength: number = newCollValue["total"];
     await DBControllerTests.classUnderTest.changeColl("IoT");
     const IoTValue: JSON = await DBControllerTests.classUnderTest.findAll();
-    const IoTLength: number = IoTValue.total;
+    const IoTLength: number = IoTValue["total"];
     const actual: number = newCollLength + IoTLength;
     assert.equal(actual, 2);
   }
@@ -149,7 +149,7 @@ import { DatabaseController, IMessage } from "./dbcontroller";
     await DBControllerTests.classUnderTest.insert(insertValue2);
     const sortSchema: {} = {deviceID: -1};
     const values: JSON = await DBControllerTests.classUnderTest.sort(sortSchema, undefined, 2);
-    const actual: number = values.total;
+    const actual: number = values["total"];
     assert.equal(actual, 2);
   }
 
