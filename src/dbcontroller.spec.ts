@@ -34,7 +34,6 @@ import { DatabaseController, IMessage } from "./dbcontroller";
                               // tslint:disable-next-line:object-literal-sort-keys
                               deviceID: "1",
                               messageType: "message",
-                              timestamp: Date.now(),
                               content: {
                                 value: "This is the first message",
                               } };
@@ -49,7 +48,6 @@ import { DatabaseController, IMessage } from "./dbcontroller";
                               // tslint:disable-next-line:object-literal-sort-keys
                               deviceID: "2",
                               messageType: "message",
-                              timestamp: Date.now(),
                               content: {
                                 value: "This is the second message",
                               } };
@@ -86,7 +84,6 @@ import { DatabaseController, IMessage } from "./dbcontroller";
                               // tslint:disable-next-line:object-literal-sort-keys
                               deviceID: "2",
                               messageType: "update",
-                              timestamp: Date.now(),
                               content: {
                                 value: "20",
                               } };
@@ -96,7 +93,6 @@ import { DatabaseController, IMessage } from "./dbcontroller";
                               // tslint:disable-next-line:object-literal-sort-keys
                               deviceID: "2",
                               messageType: "update",
-                              timestamp: Date.now(),
                               content: {
                                 value: "200",
                               } };
@@ -113,7 +109,6 @@ import { DatabaseController, IMessage } from "./dbcontroller";
                               // tslint:disable-next-line:object-literal-sort-keys
                               deviceID: "1",
                               messageType: "message",
-                              timestamp: Date.now(),
                               content: {
                                 value: "1",
                               } };
@@ -133,7 +128,6 @@ import { DatabaseController, IMessage } from "./dbcontroller";
                                     // tslint:disable-next-line:object-literal-sort-keys
                                     deviceID: "2",
                                     messageType: "message",
-                                    timestamp: Date.now(),
                                     content: {
                                       value: "2",
                                     } };
@@ -141,7 +135,6 @@ import { DatabaseController, IMessage } from "./dbcontroller";
                                     // tslint:disable-next-line:object-literal-sort-keys
                                     deviceID: "2",
                                     messageType: "message",
-                                    timestamp: Date.now(),
                                     content: {
                                       value: "2",
                                     } };

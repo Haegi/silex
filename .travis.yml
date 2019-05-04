@@ -41,7 +41,7 @@ script:
 - >
   if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
     docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
-    TAG=0.1
+    TAG=0.2
     docker tag haegi/silex haegi/silex:arm-$TAG
     docker push haegi/silex:arm-$TAG
     docker manifest create haegi/silex:$TAG haegi/silex:arm-$TAG

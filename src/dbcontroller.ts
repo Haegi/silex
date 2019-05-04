@@ -17,9 +17,7 @@ export interface IMessage {
   topic: string;
   deviceID: string;
   messageType: string;
-  timestamp: number;
   content: {};
-
 }
 
 export class DatabaseController implements IDatabase {
@@ -90,6 +88,7 @@ export class DatabaseController implements IDatabase {
   // insert something
   public insert(value: IMessage): Promise<void> {
     return new Promise((resolve, reject) => {
+      value["timestamp"] = Date.now();
       this.myCollection.insert(value, (err, result) => {
         if (err) { reject(err); }
         catController.info("Entry saved in DB");

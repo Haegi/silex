@@ -71,32 +71,32 @@ public constructor(db: IDatabase, UIConnection: boolean) {
     if (Object.keys(req.body).length === 0) {
       res.status(400).send("You need to insert something to insert");
       res.end();
-    } else if (Object.keys(req.body).length === 5) {
-    // looks if parames :collection needs a other collection
-    const collection: string = req.params.collection;
-    if (this.db.getCollectionName() !== collection) {
-      // try/catch to switch the collection
+    } else if (Object.keys(req.body).length === 4) {
+      // looks if parames :collection needs a other collection
+      const collection: string = req.params.collection;
+      if (this.db.getCollectionName() !== collection) {
+        // try/catch to switch the collection
+        try {
+          await this.db.changeColl(collection);
+        } catch (error) {
+          res.sendStatus(500);
+          catApp.error(error, new Error(error));
+        }
+      }
       try {
-        await this.db.changeColl(collection);
-      } catch (error) {
-        res.sendStatus(500);
-        catApp.error(error, new Error(error));
-      }
-    }
-    try {
-      await this.db.insert(req.body);
-      res.status(201).send("Created");
+        await this.db.insert(req.body);
+        res.status(201).send("Created");
 
-      // Send update to UI
-      if (this.UI) {
-        this.updateOnChanges(req.body);
-      } else {
-        catApp.info("No UI available");
+        // Send update to UI
+        if (this.UI) {
+          this.updateOnChanges(req.body);
+        } else {
+          catApp.info("No UI available");
+        }
+      } catch (err) {
+        res.status(500).send("Something with the insert went wrong.");
+        catApp.error(err, new Error(err));
       }
-    } catch (err) {
-      res.status(500).send("Something with the insert went wrong.");
-      catApp.error(err, new Error(err));
-    }
     } else {
       res.status(400).send("You need to pass in the right data structure");
       res.end();
@@ -109,30 +109,30 @@ public constructor(db: IDatabase, UIConnection: boolean) {
       res.end();
     } else if (Object.keys(req.body).length === 2) {
       // looks if parames :collection needs a other collection
-    const collection: string = req.params.collection;
-    if (this.db.getCollectionName() !== collection) {
-      // try/catch to switch the collection
+      const collection: string = req.params.collection;
+      if (this.db.getCollectionName() !== collection) {
+        // try/catch to switch the collection
+        try {
+          await this.db.changeColl(collection);
+        } catch (error) {
+          res.sendStatus(500);
+          catApp.error(error, new Error(error));
+        }
+      }
       try {
-        await this.db.changeColl(collection);
-      } catch (error) {
-        res.sendStatus(500);
-        catApp.error(error, new Error(error));
+        if (req.body.type === "one") {
+          await this.db.deleteOne(req.body.query);
+          res.status(200).send("Deleted");
+        } else if (req.body.type === "many") {
+          const statusMany: string = await this.db.deleteMany(req.body.query);
+          res.status(200).send(statusMany);
+        } else {
+          res.sendStatus(400);
+        }
+      } catch (err) {
+        res.status(500).send(err);
+        catApp.error(err, new Error(err));
       }
-    }
-    try {
-      if (req.body.type === "one") {
-        await this.db.deleteOne(req.body.query);
-        res.status(200).send("Deleted");
-      } else if (req.body.type === "many") {
-        const statusMany: string = await this.db.deleteMany(req.body.query);
-        res.status(200).send(statusMany);
-      } else {
-        res.sendStatus(400);
-      }
-    } catch (err) {
-      res.status(500).send(err);
-      catApp.error(err, new Error(err));
-    }
     } else {
       res.status(400).send("You need to pass in the right data structure");
       res.end();
@@ -172,7 +172,7 @@ private async updateOnChanges(body: any): Promise<void> {
     if (this.UI) {
         await this.UI.close();
         try {
-          catApp.info("Try to recreate UI");
+          catApp.info("Try to reconnect to UI");
           const reconStatus: boolean = await this.UI.reconnect();
           if (reconStatus) {
             this.UI.send(body);
