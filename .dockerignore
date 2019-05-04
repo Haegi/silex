@@ -7,3 +7,4 @@ package-lock.json
 mongodb-linux-x86_64-3.2.10
 mongodb-linux-x86_64-3.2.10.tgz
 node-v11.10.1-linux-armv7l.tar.gz
+rpi-k8s
