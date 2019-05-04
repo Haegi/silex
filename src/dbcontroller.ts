@@ -104,6 +104,7 @@ export class DatabaseController implements IDatabase {
     return new Promise((resolve, reject) => {
       this.myCollection.find().limit(limit).toArray((err, result) => {
         if (err) { reject(err); }
+        result["total"] =  Object.keys(result).length;
         resolve(result);
       });
     });
@@ -114,6 +115,7 @@ export class DatabaseController implements IDatabase {
     return new Promise((resolve, reject) => {
       this.myCollection.find(searchSchema).limit(limit).toArray((err, result) => {
         if (err) { reject(err); }
+        result["total"] =  Object.keys(result).length;
         resolve(result);
       });
     });
@@ -124,6 +126,7 @@ export class DatabaseController implements IDatabase {
     return new Promise((resolve, reject) => {
       this.myCollection.find(searchSchema).limit(limit).sort(sortSchema).toArray((err, result) => {
         if (err) { reject(err); }
+        result["total"] =  Object.keys(result).length;
         resolve(result);
       });
     });

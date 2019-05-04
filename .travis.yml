@@ -4,9 +4,6 @@ services:
 language: node_js
 node_js:
   - "10"
-branches:
-  only:
-  - master
 env:
 - NODE_ENV=testing
 before_install:

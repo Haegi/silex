@@ -62,8 +62,7 @@ import { DatabaseController, IMessage } from "./dbcontroller";
   @test private async testFindOne(): Promise<void> {
     const searchSchema: {} = {deviceID: "2"};
     const value: JSON = await DBControllerTests.classUnderTest.find(searchSchema);
-    const actual: number = Object.keys(value).length;
-    assert.equal(actual, 1);
+    assert.equal(value[0].topic, "Unittest 2");
   }
 
   @test private async testSort(): Promise<void> {
@@ -77,7 +76,7 @@ import { DatabaseController, IMessage } from "./dbcontroller";
     const query: {} = {topic: "Unittest 2"};
     await DBControllerTests.classUnderTest.deleteOne(query);
     const value: JSON = await DBControllerTests.classUnderTest.findAll();
-    const actual: number = Object.keys(value).length;
+    const actual: number = value["total"];
     assert.equal(actual, 1);
   }
 
@@ -104,7 +103,7 @@ import { DatabaseController, IMessage } from "./dbcontroller";
     await DBControllerTests.classUnderTest.insert(value2);
     await DBControllerTests.classUnderTest.deleteMany(query);
     const message: JSON = await DBControllerTests.classUnderTest.findAll();
-    const actual: number = Object.keys(message).length;
+    const actual: number = message["total"];
     assert.equal(actual, 1);
   }
 
@@ -121,10 +120,10 @@ import { DatabaseController, IMessage } from "./dbcontroller";
     await DBControllerTests.classUnderTest.insert(insertValue);
     await DBControllerTests.classUnderTest.changeColl("ml");
     const newCollValue: JSON = await DBControllerTests.classUnderTest.findAll();
-    const newCollLength: number = Object.keys(newCollValue).length;
+    const newCollLength: number = newCollValue["total"];
     await DBControllerTests.classUnderTest.changeColl("IoT");
     const IoTValue: JSON = await DBControllerTests.classUnderTest.findAll();
-    const IoTLength: number = Object.keys(IoTValue).length;
+    const IoTLength: number = IoTValue["total"];
     const actual: number = newCollLength + IoTLength;
     assert.equal(actual, 2);
   }
@@ -150,7 +149,7 @@ import { DatabaseController, IMessage } from "./dbcontroller";
     await DBControllerTests.classUnderTest.insert(insertValue2);
     const sortSchema: {} = {deviceID: -1};
     const values: JSON = await DBControllerTests.classUnderTest.sort(sortSchema, undefined, 2);
-    const actual: number = Object.keys(values).length;
+    const actual: number = values["total"];
     assert.equal(actual, 2);
   }
 
