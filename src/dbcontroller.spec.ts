@@ -62,7 +62,6 @@ import { DatabaseController, IMessage } from "./dbcontroller";
   @test private async testFindOne(): Promise<void> {
     const searchSchema: {} = {deviceID: "2"};
     const value: JSON = await DBControllerTests.classUnderTest.find(searchSchema);
-    console.log(value)
     assert.equal(value[0].topic, "Unittest 2");
   }
 
@@ -77,6 +76,7 @@ import { DatabaseController, IMessage } from "./dbcontroller";
     const query: {} = {topic: "Unittest 2"};
     await DBControllerTests.classUnderTest.deleteOne(query);
     const value: JSON = await DBControllerTests.classUnderTest.findAll();
+    console.log(value)
     const actual: number = Object.keys(value).length;
     assert.equal(actual, 1);
   }
