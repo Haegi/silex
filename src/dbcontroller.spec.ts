@@ -56,7 +56,7 @@ import { DatabaseController, IMessage } from "./dbcontroller";
     await DBControllerTests.classUnderTest.insert(value);
     const values: JSON = await DBControllerTests.classUnderTest.findAll();
     const actual: string = values[1].topic;
-    assert.equal(actual, "Unittet 2");
+    assert.equal(actual, "Unittest 2");
   }
 
   @test private async testFindOne(): Promise<void> {
@@ -70,7 +70,8 @@ import { DatabaseController, IMessage } from "./dbcontroller";
     } };
     const searchSchema: {} = {deviceID: "2"};
     const value: JSON = await DBControllerTests.classUnderTest.find(searchSchema);
-    assert.equal(1, 123);
+    console.log(value)
+    assert.equal(value, excpectedMessage);
   }
 
   @test private async testSort(): Promise<void> {
