@@ -62,7 +62,8 @@ import { DatabaseController, IMessage } from "./dbcontroller";
   @test private async testFindOne(): Promise<void> {
     const searchSchema: {} = {deviceID: "2"};
     const value: JSON = await DBControllerTests.classUnderTest.find(searchSchema);
-    assert.equal(values[1].topic, "Unittest 2");
+    console.log(value)
+    assert.equal(value[0].topic, "Unittest 2");
   }
 
   @test private async testSort(): Promise<void> {
