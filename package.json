@@ -1,6 +1,6 @@
 {
-  "name": "silex_mongodb",
-  "version": "0.0.2",
+  "name": "silex",
+  "version": "0.0.3",
   "description": "This is a Typescript MongoDB integration for my Raspberry Pi Kubernetes",
   "author": "Benjamin Haegenlaeuer <benjamin@haegenlaeuer.de>",
   "main": "dist/app.js",

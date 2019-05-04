@@ -7,3 +7,4 @@ CategoryServiceFactory.setDefaultConfiguration(new CategoryConfiguration(LogLeve
 // Create categories, they will autoregister themselves, one category without parent (root) and a child category.
 export const catController = new Category("dbcontroller");
 export const catApp = new Category("app", catController);
+export const catDashboard = new Category("dashboard");
