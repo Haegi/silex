@@ -76,8 +76,8 @@ import { DatabaseController, IMessage } from "./dbcontroller";
     const query: {} = {topic: "Unittest 2"};
     await DBControllerTests.classUnderTest.deleteOne(query);
     const value: JSON = await DBControllerTests.classUnderTest.findAll();
-    console.log(value)
-    const actual: number = Object.keys(value).length;
+    const actual: number = value["total"];
+    console.log(actual);
     assert.equal(actual, 1);
   }
 
@@ -104,7 +104,7 @@ import { DatabaseController, IMessage } from "./dbcontroller";
     await DBControllerTests.classUnderTest.insert(value2);
     await DBControllerTests.classUnderTest.deleteMany(query);
     const message: JSON = await DBControllerTests.classUnderTest.findAll();
-    const actual: number = Object.keys(message).length;
+    const actual: number = message["total"];
     assert.equal(actual, 1);
   }
 
