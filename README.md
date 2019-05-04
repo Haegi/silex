@@ -31,11 +31,11 @@ For fixes and features please check the changelog.
     topic: string,
     deviceID: string,
     messageType: string,
-    timestamp: number,
     content: {
         (default: values,
         ...)
-    }
+    },
+    timestamp: byServer,
 }
 ```
 
@@ -64,7 +64,6 @@ POST
 "topic": string,
 "deviceID": string,
 "messageType": string,
-"timestamp": number,
 "content": {
   ("value": "2")
    } 
