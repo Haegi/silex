@@ -115,6 +115,8 @@ export class DatabaseController implements IDatabase {
       this.myCollection.find(searchSchema).limit(limit).toArray((err, result) => {
         if (err) { reject(err); }
         result["total"] = Object.keys(result).length;
+        result.test = 1;
+        console.log(result)
         resolve(result);
       });
     });

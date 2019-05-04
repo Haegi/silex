@@ -71,6 +71,7 @@ import { DatabaseController, IMessage } from "./dbcontroller";
     const searchSchema: {} = {deviceID: "2"};
     const value: JSON = await DBControllerTests.classUnderTest.find(searchSchema);
     // const actual: number = Object.keys(value).length;
+    console.log(value);
     assert.equal(value, excpectetMessage);
   }
 
