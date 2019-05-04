@@ -77,7 +77,6 @@ import { DatabaseController, IMessage } from "./dbcontroller";
     await DBControllerTests.classUnderTest.deleteOne(query);
     const value: JSON = await DBControllerTests.classUnderTest.findAll();
     const actual: number = value["total"];
-    console.log(actual);
     assert.equal(actual, 1);
   }
 
@@ -121,10 +120,10 @@ import { DatabaseController, IMessage } from "./dbcontroller";
     await DBControllerTests.classUnderTest.insert(insertValue);
     await DBControllerTests.classUnderTest.changeColl("ml");
     const newCollValue: JSON = await DBControllerTests.classUnderTest.findAll();
-    const newCollLength: number = Object.keys(newCollValue).length;
+    const newCollLength: number = newCollValue["total"];
     await DBControllerTests.classUnderTest.changeColl("IoT");
     const IoTValue: JSON = await DBControllerTests.classUnderTest.findAll();
-    const IoTLength: number = Object.keys(IoTValue).length;
+    const IoTLength: number = IoTValue.total;
     const actual: number = newCollLength + IoTLength;
     assert.equal(actual, 2);
   }
@@ -150,7 +149,7 @@ import { DatabaseController, IMessage } from "./dbcontroller";
     await DBControllerTests.classUnderTest.insert(insertValue2);
     const sortSchema: {} = {deviceID: -1};
     const values: JSON = await DBControllerTests.classUnderTest.sort(sortSchema, undefined, 2);
-    const actual: number = Object.keys(values).length;
+    const actual: number = values.total;
     assert.equal(actual, 2);
   }
 
