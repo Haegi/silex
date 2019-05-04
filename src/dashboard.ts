@@ -1,4 +1,5 @@
 import * as http2 from "http2";
+import {catDashboard} from "./logconfig";
 
 export interface IUserInterface {
     send(body: any): void;
@@ -12,11 +13,9 @@ export class BrowserUI implements IUserInterface {
     public req;
     private client;
     constructor() {
-        // HTTPS STREAMING
+        // HTTP STREAMING
         this.client = http2.connect("http://silex-dashboard:999");
-        console.log("Connected to UI");
-        // Old HTTP version
-        // this.client = http2.connect("http://localhost:999");
+        catDashboard.info("Connected to UI");
     }
 
     public send(body: any): void {
@@ -31,16 +30,15 @@ export class BrowserUI implements IUserInterface {
         const pathValue: string = body.deviceID ? `/${body.deviceID}` : "/";
         this.req = this.client.request({ ":method": "GET", ":path": pathValue, payload});
         this.req.on("response", (responseHeaders) => {
-        // do something with the headers
-        console.log(responseHeaders);
+          // console.log(responseHeaders);
       });
         this.req.on("data", (chunk) => {
-        // do something with the data
-        console.log(chunk.toString("utf8"));
+          // do something with the data
+          catDashboard.info(chunk.toString("utf8"));
       });
         this.req.on("error", (error) => {
-        console.log(error);
-        this.client.destroy();
+          catDashboard.error("ERROR!", new Error(error));
+          this.client.destroy();
       });
     }
 
@@ -50,12 +48,12 @@ export class BrowserUI implements IUserInterface {
 
     public reconnect(): boolean {
         try {
-            this.client = http2.connect("http://silex-dashboard:999");
-            console.log("Recreation successfull");
-            return true;
+          this.client = http2.connect("http://silex-dashboard:999");
+          catDashboard.info("Recreation successfull");
+          return true;
         } catch (error) {
-            console.log("Can not reconnect");
-            return false;
+          catDashboard.error("ERROR! Can't reconnect", new Error(error));
+          return false;
         }
     }
 

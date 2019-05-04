@@ -89,7 +89,7 @@ export class DatabaseController implements IDatabase {
   public insert(value: IMessage): Promise<void> {
     return new Promise((resolve, reject) => {
       value["timestamp"] = Date.now();
-      this.myCollection.insert(value, (err, result) => {
+      this.myCollection.insertOne(value, (err, result) => {
         if (err) { reject(err); }
         catController.info("Entry saved in DB");
         resolve();

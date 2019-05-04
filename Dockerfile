@@ -14,7 +14,7 @@ RUN sudo node -v
 # uninstall wget
 RUN sudo apt-get remove wget
 
-ENV SILEX_VERSION 0.2
+ENV SILEX_VERSION 0.3
 
 # Create app directory
 WORKDIR /usr/src/app
