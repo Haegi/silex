@@ -60,10 +60,10 @@ import { DatabaseController, IMessage } from "./dbcontroller";
   }
 
   @test private async testFindOne(): Promise<void> {
-    const excpectetMessage: IMessage = { topic: "Unittest 2",
+    const excpectedMessage: IMessage = { topic: "Unittest 2",
     // tslint:disable-next-line:object-literal-sort-keys
     deviceID: "2",
-    messageType: "message",
+    messageType: "messag",
     timestamp: Date.now(),
     content: {
       value: "This is the second message",
@@ -72,7 +72,7 @@ import { DatabaseController, IMessage } from "./dbcontroller";
     const value: JSON = await DBControllerTests.classUnderTest.find(searchSchema);
     // const actual: number = Object.keys(value).length;
     console.log(value);
-    assert.equal(value, excpectetMessage);
+    assert.equal(value, excpectedMessage);
   }
 
   @test private async testSort(): Promise<void> {
