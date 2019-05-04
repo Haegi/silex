@@ -114,9 +114,10 @@ export class DatabaseController implements IDatabase {
     return new Promise((resolve, reject) => {
       this.myCollection.find(searchSchema).limit(limit).toArray((err, result) => {
         if (err) { reject(err); }
-        result.unshift("total" : Object.keys(result).length);
+        result.unshift("total");
+        result["total"] =  Object.keys(result).length;
         console.log(result);
-        console.log(result.total);
+        console.log(result["total"]);
         resolve(result);
       });
     });
